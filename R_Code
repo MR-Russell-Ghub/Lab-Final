@@ -74,20 +74,20 @@ int main() {
 
     int iteration = 0;
     while (iteration < maxIterations) {
-        // Prevent division by zero
+       
         if (fabs(f(x1) - f(x0)) < 1e-15) {
             cout << "Division by zero error in secant method." << endl;
             return 1;
         }
 
-        // Secant formula
+        
         x2 = x1 - f(x1) * (x1 - x0) / (f(x1) - f(x0));
 
         if (fabs(x2 - x1) < tolerance) {
-            break;  // Root found with required accuracy
+            break;  
         }
 
-        // Prepare for next iteration
+        
         x0 = x1;
         x1 = x2;
 
@@ -126,7 +126,7 @@ int main() {
 
     int iteration = 0;
     while (iteration < maxIterations) {
-        // Regula Falsi formula: c = b - f(b)*(b-a)/(f(b)-f(a))
+        
         c = b - (f(b) * (b - a)) / (f(b) - f(a));
 
         if (fabs(f(c)) < tolerance) {
