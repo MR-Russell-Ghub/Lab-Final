@@ -1,0 +1,44 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+double f(double x) {
+    return x * x - 4;
+}
+
+int main() {
+    double a, b, c;
+    double tolerance = 1e-6;
+    int maxIterations = 1000;
+
+    cout << "Enter interval [a,b]: ";
+    cin >> a >> b;
+
+    if (f(a) * f(b) >= 0) {
+        cout << "Invalid interval. f(a) and f(b) must have opposite signs." << endl;
+        return 1;
+    }
+
+    int iteration = 0;
+    while (iteration < maxIterations) {
+
+        c = b - (f(b) * (b - a)) / (f(b) - f(a));
+
+        if (fabs(f(c)) < tolerance) {
+            break;  // Found root with required accuracy
+        }
+
+        if (f(a) * f(c) < 0) {
+            b = c;
+        } else {
+            a = c;
+        }
+
+        iteration++;
+    }
+
+    cout << "The root is approximately: " << c << endl;
+    cout << "Number of iterations: " << iteration << endl;
+
+    return 0;
+}
