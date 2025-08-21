@@ -1,0 +1,54 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+double f(double x) {
+    return x * x - 4;
+}
+
+int main() {
+    double x0, x1, x2;
+    double tolerance = 1e-6;
+    int maxIterations = 1000;
+
+    cout << "Enter two initial guesses (x0 and x1): ";
+    cin >> x0 >> x1;
+
+    if (fabs(f(x0)) < tolerance) {
+        cout << "The root is approximately: " << x0 << endl;
+        cout << "Number of iterations: 0" << endl;
+        return 0;
+    }
+    if (fabs(f(x1)) < tolerance) {
+        cout << "The root is approximately: " << x1 << endl;
+        cout << "Number of iterations: 0" << endl;
+        return 0;
+    }
+
+    int iteration = 0;
+    while (iteration < maxIterations) {
+
+        if (fabs(f(x1) - f(x0)) < 1e-15) {
+            cout << "Division by zero error in secant method." << endl;
+            return 1;
+        }
+
+
+        x2 = x1 - f(x1) * (x1 - x0) / (f(x1) - f(x0));
+
+        if (fabs(x2 - x1) < tolerance) {
+            break;  
+        }
+
+
+        x0 = x1;
+        x1 = x2;
+
+        iteration++;
+    }
+
+    cout << "The root is approximately: " << x2 << endl;
+    cout << "Number of iterations: " << iteration << endl;
+
+    return 0;
+}
